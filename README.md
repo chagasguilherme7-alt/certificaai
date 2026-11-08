@@ -37,3 +37,15 @@ O GitHub Actions publica a pasta `out/` automaticamente em push no branch `main`
 - Integridade transacional de conclusão de prova, retries, limites e auditoria antifraude.
 - Feedback por competência, perfis profissionais compartilháveis, gestão de revogação e certificados gerados em PDF no backend.
 - Testes automatizados de isolamento, correção, emissão e UX.
+
+## Etapa adicional — passaporte e administração de credenciais
+- Perfil profissional público opcional, com endereço permanente criado ao salvar configurações da conta.
+- A lista do passaporte considera somente credenciais públicas, válidas e autorizadas pelo titular.
+- Revogação e reativação administrativas via Edge Function `credential-admin`, com autenticação por sessão, verificação de autorização do servidor e registro de auditoria.
+- O certificado revogado exibe aviso e não oferece o botão de salvar nova cópia.
+- O usuário pode compartilhar o passaporte na seção Meus certificados.
+- SQL acrescentou índices para pesquisas por credenciais e passaportes.
+
+**Limitações:** revogação não apaga PDFs anteriormente emitidos; o código deve ser verificado no site para consultar o status atual. PDFs são gerados pelo navegador, ainda não possuem assinatura criptográfica institucional. Testes integrados de autenticação, autorizações, correção e fluxo de emissão precisam ser concluídos antes do lançamento público.
+
+**Segurança:** funções Edge com `verify_jwt=false` validam manualmente o JWT no próprio código, porque a função de verificação pública não exige login; `credential-admin` sempre exige JWT válido e consulta autorização administrativa no banco. A chave `service_role` permanece exclusivamente no ambiente de servidor.
