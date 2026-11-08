@@ -1,0 +1,38 @@
+name: Deploy CertificaAI
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+concurrency:
+  group: pages
+  cancel-in-progress: true
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm install --no-audit --no-fund
+      - run: npm run build
+        env:
+          NEXT_TELEMETRY_DISABLED: '1'
+          NEXT_PUBLIC_SUPABASE_URL: 'https://vnktbikulnjazhfpmbdu.supabase.co'
+          NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: 'sb_publishable_uGov6Yf2POWhUz0iwNNKcg_A5kNEZxM'
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./out
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
