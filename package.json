@@ -1,6 +1,6 @@
 {
   "name": "certificaai",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -11,12 +11,14 @@
     "@supabase/supabase-js": "2.49.4",
     "next": "15.2.4",
     "react": "19.0.0",
-    "react-dom": "19.0.0"
+    "react-dom": "19.0.0",
+    "qrcode": "1.5.4"
   },
   "devDependencies": {
     "@types/node": "22.14.0",
     "@types/react": "19.0.12",
     "@types/react-dom": "19.0.4",
+    "@types/qrcode": "1.5.4",
     "typescript": "5.8.3"
   }
 }
