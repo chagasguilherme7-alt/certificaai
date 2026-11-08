@@ -4,7 +4,7 @@ Frontend estático com Next.js no GitHub Pages e backend no Supabase (Auth + Pos
 
 ## Ambiente de validação
 - 15 provas disponíveis nas cinco áreas: Excel, Inteligência Artificial, Marketing Digital, Informática e Finanças.
-- 150 questões objetivas iniciais, 10 em cada prova, duração típica de 20 minutos (Excel Básico: 15 min), aprovação com 70%.
+- 180 questões objetivas iniciais, 12 por certificação (10 sorteadas por prova), duração típica de 20 minutos (Excel Básico: 15 min), aprovação com 70%.
 - Até três tentativas por usuário em cada prova.
 - Cronômetro, marcação de revisão, histórico e salvamento de respostas.
 - Correção no Supabase Edge Function `exam-engine`, sem exposição do gabarito na interface.
@@ -49,3 +49,11 @@ O GitHub Actions publica a pasta `out/` automaticamente em push no branch `main`
 **Limitações:** revogação não apaga PDFs anteriormente emitidos; o código deve ser verificado no site para consultar o status atual. PDFs são gerados pelo navegador, ainda não possuem assinatura criptográfica institucional. Testes integrados de autenticação, autorizações, correção e fluxo de emissão precisam ser concluídos antes do lançamento público.
 
 **Segurança:** funções Edge com `verify_jwt=false` validam manualmente o JWT no próprio código, porque a função de verificação pública não exige login; `credential-admin` sempre exige JWT válido e consulta autorização administrativa no banco. A chave `service_role` permanece exclusivamente no ambiente de servidor.
+
+## Atualização — Relatórios e identidade visual
+- 45 competências temáticas distribuídas entre as 15 certificações.
+- Relatório individual após cada avaliação concluída em `/relatorio/?tentativa=<uuid>`.
+- Percentual de acertos por competência, pontos fortes e assuntos que precisam de revisão.
+- Landing page premium e novo sistema visual responsivo; cards, indicadores e interface de resultados.
+- O banco de questões agora conta com 180 questões-piloto. A classificação temática foi inicial/heurística e exige revisão pedagógica antes do lançamento.
+- A função `performance-report` valida JWT e propriedade da tentativa no servidor; não retorna respostas corretas.
